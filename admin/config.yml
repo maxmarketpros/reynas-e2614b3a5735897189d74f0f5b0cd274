@@ -1,0 +1,980 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Call Now: , key: 7c61103a'
+            label: Text
+            name: 7c61103a
+            widget: string
+          - hint: 'Original text: (360) 970-7504, key: -2b7c89a7'
+            label: Text
+            name: '-2b7c89a7'
+            widget: string
+          - hint: 'Original text: Free Quote, key: -177e2c38'
+            label: Text
+            name: '-177e2c38'
+            widget: string
+          - hint: 'Original text: Commercial Cleaning, key: 1449b50f'
+            label: Text
+            name: 1449b50f
+            widget: string
+          - hint: 'Original text: Janitorial Service, key: 5ec134e4'
+            label: Text
+            name: 5ec134e4
+            widget: string
+          - hint: 'Original text: Disinfecting Services, key: 107de87f'
+            label: Text
+            name: 107de87f
+            widget: string
+          - hint: 'Original text: Medical Office Cleaning, key: 28f04e2e'
+            label: Text
+            name: 28f04e2e
+            widget: string
+          - hint: 'Original text: Dental Office Cleaning, key: -442535b1'
+            label: Text
+            name: '-442535b1'
+            widget: string
+          - hint: 'Original text: Window Cleaning, key: -7bf720d7'
+            label: Text
+            name: '-7bf720d7'
+            widget: string
+          - hint: 'Original text: Residential Cleaning, key: -3883192b'
+            label: Text
+            name: '-3883192b'
+            widget: string
+          - hint: 'Original text: House Cleaning, key: 74989e39'
+            label: Text
+            name: '74989e39'
+            widget: string
+          - hint: 'Original text: Deep Cleaning, key: -423e6e53'
+            label: Text
+            name: '-423e6e53'
+            widget: string
+          - hint: 'Original text: Pressure Washing, key: 2e1d8608'
+            label: Text
+            name: 2e1d8608
+            widget: string
+          - hint: 'Original text: Book Now, key: 7b3ec11f'
+            label: Text
+            name: 7b3ec11f
+            widget: string
+          - hint: >-
+              Original text: Schedule Your Personalized Cleaning Service, key:
+              -49e13446
+            label: Text
+            name: '-49e13446'
+            widget: string
+          - hint: 'Original text: Janitorial Services, key: 7965680f'
+            label: Text
+            name: 7965680f
+            widget: string
+          - hint: 'Original text: Office Cleaning, key: -65ee1e23'
+            label: Text
+            name: '-65ee1e23'
+            widget: string
+          - hint: 'Original text: Facility Management, key: 595f91e0'
+            label: Text
+            name: 595f91e0
+            widget: string
+          - hint: 'Original text: Medical Facility Cleaning, key: -53853619'
+            label: Text
+            name: '-53853619'
+            widget: string
+          - hint: 'Original text: Move-In/Move-Out, key: 20e5100'
+            label: Text
+            name: '20e5100'
+            widget: string
+          - hint: 'Original text: Maid Services, key: 4d373af'
+            label: Text
+            name: 4d373af
+            widget: string
+          - hint: 'Original text: Post Construction Cleaning, key: -27de7ff8'
+            label: Text
+            name: '-27de7ff8'
+            widget: string
+          - hint: 'Original text: Disinfecting & Sanitizing, key: 79f79ac1'
+            label: Text
+            name: 79f79ac1
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: Call Now, key: -687c1ec'
+            label: Text
+            name: '-687c1ec'
+            widget: string
+          - hint: 'Original text: Email Us, key: 3137a5e2'
+            label: Text
+            name: 3137a5e2
+            widget: string
+          - hint: >-
+              Original text: Copyright © 2021 Squeaky Kleen. All rights
+              reserved., key: -2dbf84f7
+            label: Text
+            name: '-2dbf84f7'
+            widget: string
+          - hint: >-
+              Original text: House Cleaning & Maid Services for Wenatchee, WA,
+              key: -565b873
+            label: Text
+            name: '-565b873'
+            widget: string
+          - hint: >-
+              Original text: No job is too small for our crew. We are honored to
+              be welcomed into your home., key: 1f30771a
+            label: Text
+            name: 1f30771a
+            widget: string
+          - hint: 'Original text: Professional House Cleaning, key: -1f1bc2ce'
+            label: Text
+            name: '-1f1bc2ce'
+            widget: string
+          - hint: >-
+              Original text: When you welcome our crewinto your home, we do not
+              take it for granted. Every moment spent on your property will be
+              dedicated to maximizing the cleanliness of your home. With the
+              quality of our house cleaning and maid services, you will rest in
+              your home with an added peace of mind that your environment is
+              clean as can be. Give us a call today or request a quote!, key:
+              416329
+            label: Text
+            name: '416329'
+            widget: text
+          - hint: >-
+              Original text: Disinfecting Services for Wenatchee, WA, key:
+              2b44f07e
+            label: Text
+            name: 2b44f07e
+            widget: string
+          - hint: >-
+              Original text: Is your home or business in need of complete
+              sanitization? Call Squeaky Kleen.., key: -255024e0
+            label: Text
+            name: '-255024e0'
+            widget: string
+          - hint: >-
+              Original text: Has the safety of your home or office recently been
+              threatened by a customer or staff-member with COVID? Or maybe
+              you'd like to simply rest assured your environment is completely
+              safe? You found the right team to settle your concerns. Call
+              Squeaky Kleen., key: -2c35064a
+            label: Text
+            name: '-2c35064a'
+            widget: text
+          - hint: >-
+              Original text: Ever since the outbreak of COVID, our crew has been
+              on call, ready to serve the people of Wenatchee by doing our part
+              to prevent the spread. You can count on our crew to be immediately
+              responsive, and attentive to the situation. All cases are treated
+              with complete care and professionalism. We will get your business
+              back up and running, or your family back in the home. , key:
+              -23f89826
+            label: Text
+            name: '-23f89826'
+            widget: text
+          - hint: >-
+              Original text: Janitorial Services & Office Cleaning for
+              Wenatchee, WA, key: 36f6151
+            label: Text
+            name: 36f6151
+            widget: string
+          - hint: >-
+              Original text: Depend on Squeaky Kleen to maintain the cleanliness
+              of your workspace., key: 7401269e
+            label: Text
+            name: 7401269e
+            widget: string
+          - hint: 'Original text: Professional Janitorial Services, key: 4a933cb6'
+            label: Text
+            name: 4a933cb6
+            widget: string
+          - hint: >-
+              Original text: Our expert crew has many years of experience in
+              providing office general office cleaning and janitorial services.
+              Compare our work with anyone! Our quality of service is excellent,
+              and attention to detail is unmatched. Try our services once, and
+              we will strive to secure your business for life. We have been
+              acknowledged for the friendliness of our staff, as well as for our
+              willingness to go above and beyond. Contact us today! We'll be
+              happy you called., key: -2429c002
+            label: Text
+            name: '-2429c002'
+            widget: text
+          - hint: >-
+              Original text: Has the safety of your business or workspace
+              recently been threatened by a patient or staff-member with COVID?
+              Ask us about our , key: -65c3ef2c
+            label: Text
+            name: '-65c3ef2c'
+            widget: text
+          - hint: >-
+              Original text: Disinfecting and Sanitizing services, key:
+              -3c3b55b2
+            label: Text
+            name: '-3c3b55b2'
+            widget: string
+          - hint: 'Original text: ., key: 2e'
+            label: Text
+            name: 2e
+            widget: string
+          - hint: 'Original text: Deep Cleaning for Wenatchee, WA, key: -631215d4'
+            label: Text
+            name: '-631215d4'
+            widget: string
+          - hint: >-
+              Original text: Moving In? Moving Out? Need Post Construction Clean
+              up?, key: 5c372e89
+            label: Text
+            name: 5c372e89
+            widget: string
+          - hint: 'Original text: Move-In/Move-Out Cleaning, key: 65fe6439'
+            label: Text
+            name: 65fe6439
+            widget: string
+          - hint: >-
+              Original text: Are you looking make your new home spotless? Or
+              maybe you'd like to clean hour home before your next tenants move
+              in? Give us a call! We'll be sure to clear every nook and cranny
+              of any dirt or grime. We'll leave your home in tip-top shape. ,
+              key: 31e7c816
+            label: Text
+            name: 31e7c816
+            widget: text
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: >-
+              Original text: If you have just finished a remodeling project in
+              your home or office, or you are a general contractor who dreads
+              the post-construction mess, give Squeaky Kleen a call to clean up
+              for you. We will reveal your kitchen after a swift and complete
+              clean up., key: -70c7697d
+            label: Text
+            name: '-70c7697d'
+            widget: text
+          - hint: >-
+              Original text: Providing Olympia with Professional Residential &
+              Commercial Cleaning Services, key: -4d14bdb1
+            label: Text
+            name: '-4d14bdb1'
+            widget: string
+          - hint: >-
+              Original text: Maintaining the cleanliness of your home &
+              business. Call today to request a free quote!, key: 419e46f7
+            label: Text
+            name: 419e46f7
+            widget: string
+          - hint: 'Original text: Commercial Cleaning Services, key: -36431f91'
+            label: Text
+            name: '-36431f91'
+            widget: string
+          - hint: 'Original text: Air BnB Cleaning, key: 32aeb3d9'
+            label: Text
+            name: 32aeb3d9
+            widget: string
+          - hint: 'Original text: Residential Cleaning Services, key: -a1b297'
+            label: Text
+            name: '-a1b297'
+            widget: string
+          - hint: 'Original text: Post Construction, key: 1c98e051'
+            label: Text
+            name: 1c98e051
+            widget: string
+          - hint: 'Original text: About Us, key: 645efc51'
+            label: Text
+            name: 645efc51
+            widget: string
+          - hint: >-
+              Original text: When you hire Squeaky Kleen, our crew goes to work
+              with pride and gratitude for your business. Whether you have a
+              multi-bedroom home that needs tidied up, or an office workspace
+              that needs regular maintenance, our team is ready for the job! ,
+              key: d8b794a
+            label: Text
+            name: d8b794a
+            widget: text
+          - hint: >-
+              Original text: Squeaky Kleen provides cleaning and disinfecting
+              services to homes and offices throughout Wenatchee and the
+              surrounding areas. We understand the importance of maintaining the
+              cleanliness of your home or business, especially in the times that
+              we are in today. We carefully clean and clear every corner of each
+              room to ensure that no spot is left untouched. Our goal is to
+              sanitize and disinfect every surface, while leaving the inside of
+              your property nice and neat, so that you may relax with added
+              peace in mind that you are in a clean environment. After years in
+              the industry, we know that we can please any customer that comes
+              our way. Our rates are affordable, and our service is excellent.
+              We complete projects efficiently and on schedule, and go above and
+              beyond to form lasting relationships with our clients. Give us a
+              call today or request a free quote!, key: 770367bf
+            label: Text
+            name: 770367bf
+            widget: text
+          - hint: >-
+              Original text: Air BnB Housekeeping for Wenatchee, WA, key:
+              -3a003184
+            label: Text
+            name: '-3a003184'
+            widget: string
+          - hint: >-
+              Original text: Air BnB homes always require a higher standard of
+              cleanliness. Our experts know., key: 50332f21
+            label: Text
+            name: 50332f21
+            widget: string
+          - hint: 'Original text: Air BnB Cleaning Service, key: 1efc54e'
+            label: Text
+            name: 1efc54e
+            widget: string
+          - hint: "Original text: At \_Squeaky Kleen, we understand that Air BnB's have different guests coming and going all month that may need cleaned after. Especially nowadays! This is why it should be incredibly important to maintain the cleanliness of your residence. Our crew will strive to sanitize each and every surface, without missing a single spot. When we accept any job, we know that our service must be perfect. Perfection is what we strive to deliver., key: 3b14af5d"
+            label: Text
+            name: 3b14af5d
+            widget: text
+          - hint: >-
+              Original text: Has your residence been occupied by a guest with
+              COVID? Ask us about our , key: -64fa952b
+            label: Text
+            name: '-64fa952b'
+            widget: string
+          - hint: 'Original text: Disinfecting Services., key: -c0d871'
+            label: Text
+            name: '-c0d871'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: tel:(360)970-7504, key: 35419022'
+            label: Link
+            name: '35419022'
+            widget: string
+          - hint: 'Original link: #est, key: 117283'
+            label: Link
+            name: '117283'
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /janitorial-service-wenatchee-wa, key: 71e93ea6'
+            label: Link
+            name: 71e93ea6
+            widget: string
+          - hint: >-
+              Original link: /disinfecting-sanitizing-wenatchee-wa, key:
+              -1c4a01d9
+            label: Link
+            name: '-1c4a01d9'
+            widget: string
+          - hint: >-
+              Original link: /air-bnb-cleaning-service-wenatchee-wa, key:
+              -74a6a13e
+            label: Link
+            name: '-74a6a13e'
+            widget: string
+          - hint: >-
+              Original link: /house-cleaning-maid-services-wenatchee-wa, key:
+              -356ea7d8
+            label: Link
+            name: '-356ea7d8'
+            widget: string
+          - hint: 'Original link: /deep-cleaning-wenatchee-wa, key: 71834c81'
+            label: Link
+            name: 71834c81
+            widget: string
+          - hint: 'Original link: /booking-page, key: 3865fd32'
+            label: Link
+            name: 3865fd32
+            widget: string
+          - hint: 'Original link: tel:(509)433-1049, key: -78056b8f'
+            label: Link
+            name: '-78056b8f'
+            widget: string
+          - hint: 'Original link: tel:(888)642-3120, key: 54e0520f'
+            label: Link
+            name: 54e0520f
+            widget: string
+          - hint: >-
+              Original link: mailto:temisansifo@resolutelogistix.com, key:
+              5af2e587
+            label: Link
+            name: 5af2e587
+            widget: string
+          - hint: 'Original link: /assets/null/commercial-cleaning., key: -6717c443'
+            label: Link
+            name: '-6717c443'
+            widget: string
+          - hint: 'Original link: /assets/null/residential-cleaning., key: 5b0be401'
+            label: Link
+            name: 5b0be401
+            widget: string
+          - hint: >-
+              Original link:
+              http://www.homeadvisor.com/rated.squeakykleen.119367185.html, key:
+              2ffe7b3a
+            label: Link
+            name: 2ffe7b3a
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: ib61a0c9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i53584f5e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i291ad03c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i235f91f4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 45a1e5b1
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: ie70ec59
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i14e52d19
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i280dab69
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1c6b0659
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i7fb35a64
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i3f0a81d2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4cbe9bf9
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i2ea6a8b7
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i465597e0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 7958de63
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1ae30467
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i33742d5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3f051525
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-66bcdb1c'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5f411aa5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-14e52d19'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3f0a81d2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7fb35a64'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 72cf3dc0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-53584f5e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 101e9bba
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 22f4897c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 183fc1be
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 70064b73
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
